@@ -4,22 +4,16 @@ import CreateUserService from "../services/CreateUserService";
 
 export default class CreateUserController {
   public async handle(request: Request, response: Response): Promise<Response> {
-    try {
-      const { name, email, admin } = request.body;
+    const { name, email, admin } = request.body;
 
-      const createUserService = new CreateUserService();
+    const createUserService = new CreateUserService();
 
-      const userCreated = await createUserService.execute({
-        name,
-        email,
-        admin,
-      });
+    const userCreated = await createUserService.execute({
+      name,
+      email,
+      admin,
+    });
 
-      return response.status(201).json(userCreated);
-    } catch (error) {
-      return response
-        .status(400)
-        .json({ status: "failed", message: error.message });
-    }
+    return response.status(201).json(userCreated);
   }
 }
